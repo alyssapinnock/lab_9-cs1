@@ -19,15 +19,7 @@ struct HashType
 // Compute the hash function
 int hash(int x)
 {
-	int j = 0;
-	int index = 0;
-	int keyLen = strlen(x);
-	int *tmp = x;
-	
-	for (j; j < keyLen; j++){
-		index = index * 37 + tmp[j];
-	}
-	index = index % 23; // 23 is size of table
+	int index = x % 23;
 
 	return index;
 
@@ -94,14 +86,14 @@ void displayRecordsInHash(struct HashType *pHashArray, int hashSz)
 	{
 		// if index is occupied with any records, print all
 
-		int hash(i);
-		if (hash(i) != NULL){
+		struct HashType *tmp = pHashArray;
+		while (tmp != NULL){
 
-			printf("index %d -> %d, %c, %d \n", i, pHashArray->data.id, pHashArray->data.name, pHashArray->data.order);
-			// pHashArray = pHashArray->next;
+			printf("index %d -> %d, %c, %d \n", i, tmp->data.id, tmp->data.name, tmp->data.order);
+			tmp = tmp->next;
 
 		}
-		
+		//printf("\n");
 	}
 }
 
@@ -114,5 +106,6 @@ int main(void)
 	printRecords(pRecords, recordSz);
 	// Your hash implementation
 
-	displayRecordsInHash(pRecords, recordSz);
+	displayRecordsInHash(pRecords, 23);
+	
 }
